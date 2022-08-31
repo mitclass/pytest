@@ -28,17 +28,23 @@ def getData():
     ]
 
 def setup_function():
+
     global driver
+    
     driver = webdriver.Chrome(executable_path = ChromeDriverManager().install())
+    
     driver.get("http://facebook.com/")
+    
     driver.maximize_window()
 
 def teardown_function():
+
     driver.close()
     driver.quit()
 
 @pytest.mark.parametrize("username, password", getData())
 def test_login(username, password):
+
     driver.find_element(By.ID, "email").send_keys(username)
     driver.find_element(By.ID, "pass").send_keys(username)
     driver.find_element(By.id, "submit").click()
